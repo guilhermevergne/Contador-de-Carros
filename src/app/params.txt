@@ -1,0 +1,8 @@
+video_path = './Assets/video.mp4'
+video_output = './Output/video_output.mp4'
+overlap_limit = 0.25
+largura = 640
+altura = 480
+fps = 24
+font_size = 72
+padding = 10

@@ -7,30 +7,32 @@ from PIL import Image, ImageDraw, ImageFont
 
 
 def main():
+  # Leitura dos parametros
+  file = open('./src/app/params.txt','r')
+  params = {}
+  for line in file:
+     s = line.split()
+     params[s[0]] = s[2]
+
   # Carregar o modelo
-  path = '../../Assets/yolov5s.pt'
   path = './Assets/yolov5s.pt'
   model = yolov5.load(path)
   # Abrir o vídeo
-  video_path = '../../Assets/video.mp4'  # caminho para o vídeo
-  video_path = './Assets/video.mp4'
+  video_path = params['video_path']  # caminho para o vídeo
   cap = cv2.VideoCapture(video_path)
 
   # Dicionário para rastrear os IDs dos veículos e suas últimas posições
   vehicle_positions = {}
 
-  # Definir a distância mínima para considerar um veículo como novo
-  min_distance_new_vehicle = 200 # Tentativa e erro com valores arbitrários
-
   # Configurações do vídeo
-  largura, altura = 640, 480
-  fps = 24
+  largura, altura = int(params['largura']), int(params['altura'])
+  fps = int(params['fps'])
   # Define o codec e cria o objeto VideoWriter
-  video_saida = cv2.VideoWriter('video_saida.mp4', cv2.VideoWriter_fourcc(*'mp4v'), fps, (largura, altura))
-
+  video_output_path = params['video_output']
+  video_saida = cv2.VideoWriter(video_output_path, cv2.VideoWriter_fourcc(*'mp4v'), fps, (largura, altura))
 
   aux = 0
-  overlap_limit = 0.25
+  overlap_limit = float(params['overlap_limit'])
   # Loop para processar o vídeo frame por frame
   while True:
     ret, frame = cap.read()  # Lê um frame do vídeo
@@ -56,7 +58,6 @@ def main():
         box = detection[0:4].numpy()
         for vehicle_id, last_box in vehicle_positions.items():
           #distance = np.linalg.norm(center - last_position)
-          print(f'{box=}\n{last_box=}\n\n')
           if overlap_limit < IoU(box,last_box):
             new_vehicle = False
             # Atualizar a posição do veículo no dicionário
@@ -74,12 +75,11 @@ def main():
     # Exibição dos frames
     if aux%5==0:
       print(f'{num_vehicles} veículos distintos atravessaram a rua!')
-      #results.show()
     
     # Criação do vídeo frame a frame
     img = cv2.resize(results.render()[0], (largura, altura))
     img_pil = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-    font_size = 72
+    font_size = int(params['font_size'])
     font_txt = ImageFont.truetype('arial.ttf',font_size)
     pos_txt = (20,40)
     txt=str(num_vehicles)
@@ -90,7 +90,7 @@ def main():
     # Calculo de tamanho do texto
     width_txt = font_size//1.75*len(txt)
     size_txt = (width_txt,font_size)
-    padding = 10
+    padding = int(params['padding'])
 
     # Posição do retangulo
     rect_pos = (pos_txt[0] - padding, pos_txt[1] - padding, pos_txt[0] + size_txt[0] + padding, pos_txt[1] + size_txt[1] + padding)

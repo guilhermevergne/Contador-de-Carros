@@ -1,62 +1,48 @@
-# python-repository-template
+# Vehicle Detection and Tracking
 
-A Python repository template to facilitate getting your projects started and organized.
+This project utilizes a YOLOv5 model to detect and track vehicles in a video stream. It provides functionality to count vehicles and mark their positions as they move through the camera's field of view.
 
-# If you use Windows, use chocolatey for installing things
+## Getting Started
 
-- [chocolatey installation guide](https://chocolatey.org/install)
+These instructions will get your copy of the project up and running on your local machine for development and testing purposes.
 
-# Use pyenv for Python version management
+### Prerequisites
 
-- [pyenv installation guide](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation)
+Before running the project, make sure you have the following prerequisites installed on your system:
+- Poetry
+- Makefile
+- Pyenv
 
-```bash
-curl https://pyenv.run | bash
-echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
-echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
-echo 'eval "$(pyenv init -)"' >> ~/.bashrc
-echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.profile
-echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.profile
-echo 'eval "$(pyenv init -)"' >> ~/.profile
-exit
-```
+### Installing
 
-In another shell:
-
-```bash
-pyenv update
-pyenv install 3.9.13
-pyenv rehash
-pyenv global 3.9.13
-exit
-```
-
-# Use `make` for simplifing commands and making it explicit how to run your code
-
-- [make documentation](https://www.gnu.org/software/make/manual/make.html)
-
-# Use poetry for managing Python dependencies
-
-[Poetry](https://python-poetry.org/docs/basic-usage/) is a tool for dependency management and packaging in Python. It allows you to declare the libraries your project depends on and it will manage (install/update) them for you. Poetry offers a lockfile to ensure repeatable installs, and can build your project for distribution.
-
-## Basic commands:
-
-- Add new dependency: `poetry add <package>`
-- Install dependencies: `poetry install`
-- Update dependencies: `poetry update`
-- Remove dependencies: `poetry remove <package>`
-- Run a command in the virtual environment: `poetry run <command>`
-- Run python in the virtual environment: `poetry run python <command>`
-
-# Make sure to use the Makefile to facilitate the usage of your repository
-
-Anyone that clones your repository should be able to relatively easily run your code with just a few commands. The Makefile should contain the following commands:
+To set up the project environment and install the necessary packages, run the following command:
 
 ```bash
 make install
+```
+
+This will install all the required Python packages and set up the environment needed to run the vehicle detection and tracking program.
+
+### Configuration
+
+To configure the project settings, edit the params.txt file located in the ./src/app/ directory. The file should contain the following parameters:
+
+- video_path: The path to the video file to be analyzed (default is './Assets/video.mp4').
+- overlap_limit: The IoU threshold for vehicle tracking (default is 0.25).
+- largura: The width of the video frame (default is 640).
+- altura: The height of the video frame (default is 480).
+- fps: The frames per second of the output video (default is 24).
+- font_size: The font size of the vehicle count displayed (default is 72).
+- padding: The padding around the vehicle count text (default is 10).
+
+Ensure that your video file is placed in the path setted at 'params.txt'(default is 'video.mp4' in the folder 'Assets' at the root of the project directory).
+
+### Runing the Program
+
+To run the program, use the following command:
+
+```bash
 make run
 ```
 
-# Use pre-commit for running checks before committing
-
-[pre-commit](https://pre-commit.com/) is a framework for managing and maintaining multi-language pre-commit hooks. It is a client-side hook manager that can be used to automate checks before committing code. It is recommended to use pre-commit to ensure code formatting, among other things.
+This command will start the process of vehicle detection and tracking on the video specified in your params.txt configuration file. The output will be saved and can be reviewed after the program completes.
