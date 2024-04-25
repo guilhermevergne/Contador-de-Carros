@@ -9,9 +9,20 @@ These instructions will get your copy of the project up and running on your loca
 ### Prerequisites
 
 Before running the project, make sure you have the following prerequisites installed on your system:
-- Poetry
+- Python (3.12.1 or newer)
+- Chocolatey
 - Makefile
 - Pyenv
+
+For WINDOWS users, open Windows Power-Shell as admin and run the following commands one by one:
+```bash
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+choco install make
+
+choco install pyenv-win
+```
+After the last command you may have to confirm typing 'y'
 
 ### Installing
 
