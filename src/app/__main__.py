@@ -15,7 +15,7 @@ def main():
      params[s[0]] = s[2]
 
   # Carregar o modelo
-  path = './Assets/yolov5s.pt'
+  path = './assets/yolov5s.pt'
   model = yolov5.load(path)
   # Abrir o vídeo
   video_path = params['video_path']  # caminho para o vídeo
