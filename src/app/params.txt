@@ -1,5 +1,5 @@
-video_path = ./Assets/video.mp4
-video_output = ./Output/video_output.mp4
+video_path = ./assets/video.mp4
+video_output = ./output/video_output.mp4
 overlap_limit = 0.15
 largura = 640
 altura = 480
